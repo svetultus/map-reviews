@@ -32,8 +32,14 @@ module.exports = class {
         let balloon = balloonOpened;
         let address = point.address;
 
-        if (balloon !== undefined) {
-            balloon.close();
+        if (balloon !== undefined ) {
+            try {
+                if (balloon.getState() !== "CLOSED") {
+                    balloon.close();
+                }
+            } catch (error) {
+                console.log(balloon);
+            }
         }
         if (cluster.balloon) {
             cluster.balloon.close();

@@ -133,8 +133,14 @@ export default class {
             if (!object.getGeoObjects) {
                 this.balloon = this.myApi.createBaloon(this.map, this.point, object, this.balloon, this.cluster, this.customItemContentLayout, this.customClusterContentLayout);
             } else {
-                if (this.balloon) {
-                    this.balloon.close();
+                if (this.balloon !== undefined ) {
+                    try {
+                        if (this.balloon.getState() !== "CLOSED") {
+                            this.balloon.close();
+                        }
+                    } catch (error) {
+                        console.log(this.balloon);
+                    }
                 }
                 this.cluster.balloon.open(this.cluster.getClusters()[0]);
             }
